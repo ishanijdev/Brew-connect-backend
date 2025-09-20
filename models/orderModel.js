@@ -40,6 +40,14 @@ const orderSchema = new mongoose.Schema({
     required: true,
     default: false,
   },
+  status: {
+    type: String,
+    required: true,
+    default: 'Pending', // All orders will start as Pending
+  },
+  paidAt: {
+    type: Date,
+  },
 }, {
   timestamps: true, // Adds createdAt and updatedAt
 });

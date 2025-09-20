@@ -35,15 +35,14 @@ app.post('/api/stripe-webhook', express.raw({type: 'application/json'}), async (
     const paymentIntent = event.data.object;
     console.log('✅ PaymentIntent was successful!');
     
-    // Find the order using the metadata we stored
     const order = await Order.findOne({ paymentIntentId: paymentIntent.id });
-    if (order && !order.isPaid) {
-        order.isPaid = true;
+    if (order && order.status !== 'Successful') {
+        // --- THIS IS THE FIX ---
+        order.status = 'Successful';
         order.paidAt = Date.now();
         await order.save();
-        console.log(`Order ${order._id} has been marked as paid.`);
+        console.log(`Order ${order._id} has been marked as Successful.`);
 
-        // Now that payment is confirmed, clear the user's cart
         const user = await User.findById(order.user);
         if (user) {
             user.cartItems = [];
@@ -51,7 +50,7 @@ app.post('/api/stripe-webhook', express.raw({type: 'application/json'}), async (
             console.log(`Cart cleared for user ${user._id}.`);
         }
     }
-  }
+}
 
   res.json({received: true});
 });
