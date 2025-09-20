@@ -10,10 +10,10 @@ This is the backend server for the Coffee Leaf full-stack e-commerce application
 
 * **RESTful API:** A complete set of endpoints to manage products, users, carts, and orders.
 * **User Authentication & Authorization:** Secure user registration and login using JSON Web Tokens (JWT). Passwords are encrypted using `bcryptjs`.
-* **Middleware Protection:** Custom middleware ensures that sensitive routes (e.g., placing an order, viewing profile) are only accessible to authenticated users.
-* **Data Modeling:** Mongoose schemas define the structure for products, users, and orders in the MongoDB database.
+* **Middleware Protection:** Custom middleware ensures that sensitive routes are only accessible to authenticated users.
+* **Data Modeling:** Mongoose schemas define the structure for products, users, and orders.
 * **Custom Business Logic:** Includes a unique endpoint for filtering products based on "mood" tags.
-* **Persistent Data:** Manages user-specific shopping carts and a complete order history.
+* **Simulated Order Processing:** Backend logic to create an order and mark it as paid, simulating a successful transaction.
 
 ---
 
@@ -22,7 +22,6 @@ This is the backend server for the Coffee Leaf full-stack e-commerce application
 * **Backend:** Node.js, Express.js
 * **Database:** MongoDB (with Mongoose)
 * **Authentication:** JSON Web Tokens (JWT), bcrypt.js
-
 ---
 
 ## API Endpoints
