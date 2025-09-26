@@ -1,6 +1,6 @@
-# ☕ Coffee Leaf - Backend API
+# ☕ Bréw Connect - Backend API
 
-This is the backend server for the Coffee Leaf full-stack e-commerce application. It is a RESTful API built with Node.js and Express, connected to a MongoDB database. It handles all data management, user authentication, and business logic.
+This is the backend server for the Bréw Connect full-stack e-commerce application. It is a RESTful API built with Node.js and Express, connected to a MongoDB database. It handles all data management, user authentication, and business logic.
 
 **Live API URL:** [https://coffee-leaf-api.onrender.com](https://coffee-leaf-api.onrender.com) 
 
