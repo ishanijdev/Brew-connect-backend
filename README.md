@@ -1,4 +1,4 @@
-# ☕ Bréw Connect - Backend API
+# ![alt text](logo2.png) Bréw Connect - Backend API
 
 This is the backend server for the Bréw Connect full-stack e-commerce application. It is a RESTful API built with Node.js and Express, connected to a MongoDB database. It handles all data management, user authentication, and business logic.
 
@@ -54,11 +54,11 @@ To run this project, you will need to add a `.env` file in the root of the `back
 
 1.  Clone the repository:
     ```bash
-    git clone [https://github.com/ishanijdev/coffee-leaf-backend.git](https://github.com/ishanijdev/coffee-leaf-backend.git)
+    git clone https://github.com/ishanijdev/coffee-leaf-backend.git
     ```
 2.  Navigate into the project directory:
     ```bash
-    cd coffee-leaf-backend
+    cd backend
     ```
 3.  Install dependencies:
     ```bash
@@ -69,3 +69,9 @@ To run this project, you will need to add a `.env` file in the root of the `back
     ```bash
     node server.js
     ```
+    
+---
+
+## License 
+
+This project is open-source and free to use for educational purposes.
