@@ -1,4 +1,4 @@
-# ![alt text](logo2.png) Bréw Connect - Backend API
+# ![alt text](logo2-1.png) Bréw Connect - Backend API
 
 This is the backend server for the Bréw Connect full-stack e-commerce application. It is a RESTful API built with Node.js and Express, connected to a MongoDB database. It handles all data management, user authentication, and business logic.
 
