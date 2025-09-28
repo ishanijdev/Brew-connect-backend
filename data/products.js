@@ -24,7 +24,7 @@ const products = [
   {
     name: 'Mocha',
     price: 170,
-    description: 'A chocolate-flavored coffee delight.',
+    description: 'A chocolate-flavored coffee delight, crafted to perfection.',
     imageUrl: '/images/mocha.png',
     tags: ['sweet', 'happy', 'dessert'],
   },
@@ -38,7 +38,7 @@ const products = [
   {
     name: 'Green Tea',
     price: 130,
-    description: 'Light and fresh with a touch of calm.',
+    description: 'Light, fresh and a delicate blend with a touch of calm.',
     imageUrl: '/images/greentea.webp',
     tags: ['calm', 'focused', 'healthy'],
   },
