@@ -68,6 +68,12 @@ app.post('/api/stripe-webhook', express.raw({type: 'application/json'}), async (
 // 5. General JSON parser for all OTHER routes comes AFTER the webhook
 app.use(express.json());
 
+// --- ADD THIS WELCOME ROUTE ---
+app.get('/', (req, res) => {
+  res.send('API is running...');
+});
+// -----------------------------
+
 // 6. Define all your other API routes
 app.get('/api/config/stripe', (req, res) => {
   res.send({ publishableKey: process.env.STRIPE_PUBLISHABLE_KEY });
