@@ -42,6 +42,27 @@ const products = [
     imageUrl: '/images/greentea.webp',
     tags: ['calm', 'focused', 'healthy'],
   },
+  {
+    name: 'Morning Classic',
+    price: 259,
+    description: 'Includes: Cappuccino + Butter Croissant',
+    imageUrl: '/images/cappuccino-croissant.png',
+    tags: ['bestseller', 'morning', 'classic'],
+  },
+  {
+    name: 'Sweet Treat Combo',
+    price: 289,
+    description: 'Includes: Mocha + Chocolate Muffin',
+    imageUrl: '/images/mocha-muffin.png',
+    tags: ['sweet deal', 'dessert', 'happy'],
+  },
+  {
+    name: 'Afternoon Break',
+    price: 279,
+    description: 'Includes: Latte + Banana Bread Slice',
+    imageUrl: '/images/latte-bananabread.png',
+    tags: ['cozy up', 'afternoon', 'chill'],
+  }
 ];
 
 module.exports = products;
