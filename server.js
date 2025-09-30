@@ -1,23 +1,29 @@
 const express = require('express');
 const dotenv = require('dotenv');
-const connectDB = require('./db.js');
-const productRoutes = require('./routes/productRoutes.js');
-const userRoutes = require('./routes/userRoutes.js'); // 1. IMPORT USER ROUTES
 const cors = require('cors');
+const connectDB = require('./db.js');
 
-dotenv.config();
-
+const productRoutes = require('./routes/productRoutes.js');
+const userRoutes = require('./routes/userRoutes.js');
 const cartRoutes = require('./routes/cartRoutes.js');
 const orderRoutes = require('./routes/orderRoutes.js');
-const Order = require('./models/orderModel.js');
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
-const User = require('./models/userModel.js');
 
+const User = require('./models/userModel.js');
+const Order = require('./models/orderModel.js');
+
+// 1. Load environment variables FIRST
+dotenv.config();
+
+// 2. Initialize Stripe and connect to DB AFTER loading variables
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 connectDB();
 
 const app = express();
 
+// 3. Apply CORS middleware
 app.use(cors());
+
+// 4. Stripe webhook route must be BEFORE express.json()
 app.post('/api/stripe-webhook', express.raw({type: 'application/json'}), async (req, res) => {
   const sig = req.headers['stripe-signature'];
   const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
@@ -30,14 +36,12 @@ app.post('/api/stripe-webhook', express.raw({type: 'application/json'}), async (
     return res.status(400).send(`Webhook Error: ${err.message}`);
   }
 
-  // Handle the event
   if (event.type === 'payment_intent.succeeded') {
     const paymentIntent = event.data.object;
     console.log('✅ PaymentIntent was successful!');
     
     const order = await Order.findOne({ paymentIntentId: paymentIntent.id });
     if (order && order.status !== 'Successful') {
-        // --- THIS IS THE FIX ---
         order.status = 'Successful';
         order.paidAt = Date.now();
         await order.save();
@@ -50,27 +54,24 @@ app.post('/api/stripe-webhook', express.raw({type: 'application/json'}), async (
             console.log(`Cart cleared for user ${user._id}.`);
         }
     }
-}
+  }
 
   res.json({received: true});
 });
-app.use(express.json()); // 2. ADD THIS MIDDLEWARE TO ACCEPT JSON DATA
 
-const PORT = process.env.PORT || 5000;
+// 5. General JSON parser for all OTHER routes comes AFTER the webhook
+app.use(express.json());
 
-app.get('/', (req, res) => {
-  res.send('API is running...');
-});
-
-// Route to get the Stripe publishable key
+// 6. Define all your other API routes
 app.get('/api/config/stripe', (req, res) => {
   res.send({ publishableKey: process.env.STRIPE_PUBLISHABLE_KEY });
 });
-
 app.use('/api/products', productRoutes);
-app.use('/api/users', userRoutes); // 3. USE USER ROUTES
-app.use('/api/cart', cartRoutes); 
+app.use('/api/users', userRoutes);
+app.use('/api/cart', cartRoutes);
 app.use('/api/orders', orderRoutes);
+
+const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
