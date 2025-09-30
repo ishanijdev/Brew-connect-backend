@@ -24,7 +24,11 @@ const app = express();
 app.use(cors());
 
 // 4. Stripe webhook route must be BEFORE express.json()
+
 app.post('/api/stripe-webhook', express.raw({type: 'application/json'}), async (req, res) => {
+  // NEW DEBUGGING LOG
+  console.log('--- Webhook Received. Verifying signature... ---');
+
   const sig = req.headers['stripe-signature'];
   const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
 
@@ -32,10 +36,12 @@ app.post('/api/stripe-webhook', express.raw({type: 'application/json'}), async (
   try {
     event = stripe.webhooks.constructEvent(req.body, sig, webhookSecret);
   } catch (err) {
-    console.log(`Webhook Error: ${err.message}`);
+    // This is the error you are seeing
+    console.error(`Webhook Error: ${err.message}`);
     return res.status(400).send(`Webhook Error: ${err.message}`);
   }
 
+  // Handle the event
   if (event.type === 'payment_intent.succeeded') {
     const paymentIntent = event.data.object;
     console.log('✅ PaymentIntent was successful!');
